@@ -34,17 +34,64 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // --- 1. Generar tarjetas del carrusel (todos los municipios) ---
+    const imagenesMunicipios = {
+        "Abasolo": "abasolo.png",
+        "Aldama": "aldama.png",
+        "Altamira": "altamira.png",
+        "Antiguo Morelos": "antiguo_morelos.png",
+        "Burgos": "burgos.png",
+        "Bustamante": "bustamante.png",
+        "Camargo": "camargo.png",
+        "Casas": "casas.png",
+        "Ciudad Madero": "ciudad_madero.png",
+        "Cruillas": "cruillas.png",
+        "Gómez Farías": "gomez_farias.png",
+        "González": "gonzales.png",
+        "Güémez": "guemez.png",
+        "Guerrero": "guerrero.png",
+        "Gustavo Díaz Ordaz": "diaz_ordaz.png",
+        "Hidalgo": "hidalgo.png",
+        "Jaumave": "jaumave.png",
+        "Jiménez": "jimenez.png",
+        "Llera": "llera.png",
+        "Mainero": "mainero.png",
+        "El Mante": "el_mante.png",
+        "Matamoros": "matamoros.png",
+        "Méndez": "mendez.png",
+        "Mier": "mier.png",
+        "Miguel Alemán": "miguel_aleman.png",
+        "Miquihuana": "miquihuana.png",
+        "Nuevo Laredo": "nuevo_ladero.png",
+        "Nuevo Morelos": "nuevo_morelos.png",
+        "Ocampo": "Ocampo.png",
+        "Padilla": "padilla.png",
+        "Palmillas": "palmillas.png",
+        "Reynosa": "reynosa.png",
+        "Río Bravo": "rio_bravo.png",
+        "San Carlos": "san_carlos.png",
+        "San Fernando": "san_fernando.png",
+        "San Nicolás": "san_nicolas.png",
+        "Soto la Marina": "soto_la_marina.png",
+        "Tampico": "tampico.png",
+        "Tula": "tula.png",
+        "Valle Hermoso": "valle_hermoso.png",
+        "Victoria": "ciudad_victoria.png",
+        "Villagrán": "villagran.png",
+        "Xicoténcatl": "xicotencatl.png"
+    };
+    
     const swiperWrapper = document.getElementById('swiper-wrapper');
     if (swiperWrapper) {
         municipios.forEach(mun => {
             const categoria = categorias[Math.floor(Math.random() * categorias.length)];
             const ratingHtml = randomRating();
+            const imagen = imagenesMunicipios[mun] || "placeholder.png"; // fallback
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
             slide.innerHTML = `
                 <div class="card">
                     <div class="card-img">
-                        <img src="https://via.placeholder.com/400x300?text=${encodeURIComponent(mun)}" alt="${mun}">
+                        <img src="imagenes_municipios/${imagen}" alt="${mun}">
                         <div class="card-category">${categoria}</div>
                     </div>
                     <div class="card-info">
@@ -95,6 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
         [27.6, -97.0]    // noreste
     ];
     map.fitBounds(bounds);
+    
+    // Delimitar el mapa para enfocarse únicamente en Tamaulipas
+    map.setMaxBounds(bounds);
+    map.setMinZoom(6);  // Zoom mínimo para evitar alejarse demasiado
     
     // --- 3. Galería mejorada con imágenes temáticas ---
     const galleryGrid = document.getElementById('gallery-grid');
